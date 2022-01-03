@@ -2,7 +2,7 @@
 
 # Just a basic script U can improvise lateron asper ur need xD 
 
-MANIFEST="https://github.com/SHRP/platform_manifest_twrp_omni/tree/v3_11.0"
+MANIFEST="git://github.com/SHRP/manifest.git -b v3_11.0"
 
 DT_PATH=device/xiaomi/camellia
 DT_LINK="https://github.com/willzyx-hub/shrp_device_xiaomi_camellia -b android-11.0"
@@ -16,7 +16,7 @@ DEVICE=${DT_PATH##*\/}
 
 echo " ===+++ Syncing Recovery Sources +++==="
 repo init --depth=1 -u $MANIFEST
-repo sync
+repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags
 git clone --depth=1 $DT_LINK $DT_PATH
 
 echo " ===+++ Building Recovery +++==="
